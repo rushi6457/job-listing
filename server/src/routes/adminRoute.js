@@ -22,7 +22,7 @@ const Job = async(req,res) =>{
 const getAlljobs = async(req,res) =>{
 
         try {
-            let jobs = await JobModel.find()
+            let jobs = await FormModel.find()
              res.send(jobs)
         } catch (error) {
             res.send(error)

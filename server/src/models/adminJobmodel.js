@@ -6,7 +6,7 @@ const FormSchema = new mongoose.Schema({
 
     position:{type:String},
 
-    contract:{type:Boolean},
+    contract:{type:String},
     
     location:{type:String}
 },{
