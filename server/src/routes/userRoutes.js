@@ -13,7 +13,7 @@ const Signup = async(req,res) =>{
       
         try {
               if(userExists){
-            res.send({"message" : "User already exists please login to proceed"})
+            res.send({"message" : "User already exists please login to proceed", status:false})
         }
         else{
           if(email.includes("@masaischool.com")){
@@ -40,7 +40,7 @@ const Signup = async(req,res) =>{
           }
     }
         } catch (error) {
-            res.send(error)
+            res.send(error,{status:false})
         }
 }
 const findUser = async (data) => {
@@ -75,7 +75,7 @@ const Login = async (req, res) => {
   let user = await validateUser({ email, password });
     
       if(user && email.includes("@masaischool.com")){
-         if (user  ) {
+         if (user ) {
     let token = jwt.sign(
       { email: user.email, name: user.name,role:user.role},
       process.env.SECRET_KEY,
@@ -89,9 +89,9 @@ const Login = async (req, res) => {
         process.env.REFRESH_KEY,
       { expiresIn: "7 days" }
     );
-     res.status(200).send({ "Message": "Admin Login successfull" , token, refreshToken,role:"Admin" });
+     res.status(200).send({ "Message": "Admin Login successfull" , token, refreshToken,role:"Admin",status:true });
   } else {
-    return res.send({ status: false, messege: "something went wrong" });
+    return res.send({ status: false, messege: "something went wrong",status:false });
   }
       }
       else{
@@ -110,7 +110,7 @@ const Login = async (req, res) => {
         process.env.REFRESH_KEY,
       { expiresIn: "7 days" }
     );
-     res.status(200).send({ "Message": "Login successfull" , token, refreshToken ,role:"User" });
+     res.status(200).send({ "Message": "Login successfull" , token, refreshToken ,role:"User",status:tmongoose.rusted });
   } else {
     return res.send({ status: false, messege: "something went wrong" });
   }
